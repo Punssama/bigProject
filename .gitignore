@@ -51,7 +51,6 @@ PackageCache/
 # Builds
 *.apk
 *.aab
-*.unitypackage
 *.app
 *.exe
 *.dll
@@ -60,18 +59,3 @@ PackageCache/
 
 # ============ Git LFS ============
 # Track large binary assets
-*.psd
-*.png
-*.jpg
-*.jpeg
-*.tga
-*.gif
-*.mp3
-*.wav
-*.ogg
-*.mp4
-*.mov
-*.fbx
-*.blend
-*.prefab
-*.unity
