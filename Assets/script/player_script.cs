@@ -26,7 +26,6 @@ public class player_script : MonoBehaviour
     void Start()
     {
         rb.gravityScale = 7f;
-        Time.fixedDeltaTime = 0.01f;
     } // Update is called once per frame
     void Update()
     {

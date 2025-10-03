@@ -2,15 +2,18 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class mapCollision : MonoBehaviour
 {
     private Animator animator;
+    private gameManager gameManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private bool isOpen = false;
     void Awake()
     {
         animator = GetComponent<Animator>();
+        gameManager = GetComponent<gameManager>();
     }
     void Start()
 
@@ -29,7 +32,7 @@ public class mapCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isOpen = true;
-
+            SceneManager.LoadScene("Win");
         }
     }
     void OnTriggerExit2D(Collider2D collision)

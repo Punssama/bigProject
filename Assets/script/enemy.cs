@@ -1,111 +1,94 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
+using UnityEngine.UIElements;
 
 public class EnemyAI : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    public LayerMask groundLayer;
-    public Transform groundCheck;
-    public Transform groundCheck2;
-    public bool isGrounded, isGrounded2;
-    public float patrolSpeed = 2f;
-    public float chaseSpeed = 3.5f;
-    public float moveDistance = 3f;
+    [SerializeField] private float distance = 3f;
+    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] Transform player;
+    [SerializeField] private bool isChasing;
 
-    [Header("Detection Settings")]
-    public float detectionRange = 5f;
-    public Transform player;
-
-    private Vector2 startPos;
-    private int direction = 1;
-
-    private enum EnemyState { Patrolling, Chasing, Returning }
-    private EnemyState currentState = EnemyState.Patrolling;
-
+    private bool MovingRight = true;
+    private Vector3 currentEnPos;
     void Start()
     {
-        startPos = transform.position;
+        currentEnPos = transform.position;
     }
-
     void Update()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-        isGrounded2 = Physics2D.OverlapCircle(groundCheck2.position, 0.2f, groundLayer);
-
-        // --- State transitions ---
-        if (distanceToPlayer <= detectionRange)
+        if (isChasing)
         {
-            currentState = EnemyState.Chasing;
+            chasingMode();
         }
-        else if (currentState == EnemyState.Chasing && distanceToPlayer > detectionRange)
+        else
         {
-            currentState = EnemyState.Returning;
+            patrollingMode();
         }
+    }
+    void flip()
+    {
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
+    }
+    void patrollingMode()
+    {
 
-        // --- State behaviors ---
-        switch (currentState)
+        float leftBound = currentEnPos.x - distance;
+        float rightBound = currentEnPos.x + distance;
+
+        if (MovingRight)
         {
-            case EnemyState.Patrolling:
-                Patrol();
-                break;
-
-            case EnemyState.Chasing:
-                Chase();
-                break;
-
-            case EnemyState.Returning:
-                ReturnToStart();
-                break;
+            transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            if (transform.position.x >= rightBound)
+            {
+                MovingRight = false;
+                flip();
+            }
+        }
+        else
+        {
+            transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
+            if (transform.position.x <= leftBound)
+            {
+                MovingRight = true;
+                flip();
+            }
+        }
+    }
+    void chasingMode()
+    {
+        Vector3 distance = (player.position - transform.position).normalized;
+        transform.Translate(distance * moveSpeed * Time.deltaTime);
+        if (distance.x > 0 && !MovingRight)
+        {
+            MovingRight = true;
+            flip();
+        }
+        if (distance.x < 0 && MovingRight)
+        {
+            MovingRight = false;
+            flip();
         }
     }
 
-    void Patrol()
-    {
-        // Move enemy left-right
-        transform.Translate(Vector2.right * direction * patrolSpeed * Time.deltaTime);
 
-        // Change direction when reaching patrol limit
-        if (Vector2.Distance(startPos, transform.position) >= moveDistance || !isGrounded || !isGrounded2)
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
         {
-            direction *= -1;
-        }
+            isChasing = true;
 
-        // Rotate sprite
-        RotateSprite(direction);
-    }
-
-    void Chase()
-    {
-        // Move towards player (only on X axis)
-        Vector2 target = new Vector2(player.position.x, transform.position.y);
-        transform.position = Vector2.MoveTowards(transform.position, target, chaseSpeed * Time.deltaTime);
-
-        // Rotate towards player
-        float moveDir = player.position.x - transform.position.x;
-        RotateSprite(moveDir);
-    }
-
-    void ReturnToStart()
-    {
-        // Move back to starting point
-        transform.position = Vector2.MoveTowards(transform.position, startPos, patrolSpeed * Time.deltaTime);
-
-        // Rotate towards start position
-        float moveDir = startPos.x - transform.position.x;
-        RotateSprite(moveDir);
-
-        // When close enough, switch back to patrol
-        if (Vector2.Distance(transform.position, startPos) < 0.1f)
-        {
-            currentState = EnemyState.Patrolling;
         }
     }
-
-    void RotateSprite(float moveDir)
+    void OnTriggerExit2D(Collider2D collision)
     {
-        if (moveDir > 0)
-            transform.rotation = Quaternion.Euler(0, 0, 0);   // Face right
-        else if (moveDir < 0)
-            transform.rotation = Quaternion.Euler(0, 180, 0); // Face left
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            isChasing = false;
+        }
     }
 }
