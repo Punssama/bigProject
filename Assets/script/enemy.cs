@@ -6,7 +6,8 @@ using UnityEngine.UIElements;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private float distance = 3f;
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float ChasingMoveSpeed = 3.75f;
     [SerializeField] Transform player;
     [SerializeField] private bool isChasing;
 
@@ -61,7 +62,7 @@ public class EnemyAI : MonoBehaviour
     void chasingMode()
     {
         Vector3 distance = (player.position - transform.position).normalized;
-        transform.Translate(distance * moveSpeed * Time.deltaTime);
+        transform.Translate(new Vector3(distance.x, 0, 0) * ChasingMoveSpeed * Time.deltaTime);
         if (distance.x > 0 && !MovingRight)
         {
             MovingRight = true;

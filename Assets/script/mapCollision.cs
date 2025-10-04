@@ -13,7 +13,7 @@ public class mapCollision : MonoBehaviour
     void Awake()
     {
         animator = GetComponent<Animator>();
-        gameManager = GetComponent<gameManager>();
+        gameManager = FindAnyObjectByType<gameManager>();
     }
     void Start()
 
@@ -32,7 +32,7 @@ public class mapCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isOpen = true;
-            SceneManager.LoadScene("Win");
+            gameManager.winScreen();
         }
     }
     void OnTriggerExit2D(Collider2D collision)

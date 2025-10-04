@@ -21,6 +21,10 @@ public class playerCollision : MonoBehaviour
         {
             isLadder = true;
         }
+        if (collision.gameObject.CompareTag("trap"))
+        {
+            Debug.Log("dead");
+        }
 
 
     }
