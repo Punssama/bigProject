@@ -13,7 +13,7 @@ public class playerCollision : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        gameManager = GetComponent<gameManager>();
+        gameManager = FindAnyObjectByType<gameManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,7 +23,7 @@ public class playerCollision : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("trap"))
         {
-            Debug.Log("dead");
+            gameManager.LoseScreen();
         }
 
 
@@ -40,8 +40,7 @@ public class playerCollision : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("enemy"))
         {
-            Debug.Log("dead");
-
+            gameManager.LoseScreen();
         }
     }
 

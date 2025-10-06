@@ -8,4 +8,8 @@ public class gameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Win");
     }
+    public void LoseScreen()
+    {
+        SceneManager.LoadScene("lose");
+    }
 }

@@ -181,7 +181,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.037146628, y: -0.009927869}
+  m_Offset: {x: 0.11326215, y: -0.029718637}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -191,7 +191,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8771814, y: 0.91968536}
+  m_Size: {x: 0.9008867, y: 1.1008976}
   m_EdgeRadius: 0
 --- !u!50 &42759037
 Rigidbody2D:
@@ -358,9 +358,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   groundCheck: {fileID: 1442069931}
-  groundLayerIndex: 0
   jumpHeight: 16.75
-  isGrounded: 0
+  climbHeight: 4
+  acceleration: 20
+  deceleration: 20
+  maxSpeed: 10
+  jumpBoost: 0.5
 --- !u!1 &46830339
 GameObject:
   m_ObjectHideFlags: 0
@@ -5715,7 +5718,7 @@ Transform:
   m_GameObject: {fileID: 1442069930}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -0.71, z: 0}
+  m_LocalPosition: {x: -0.03, y: -0.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

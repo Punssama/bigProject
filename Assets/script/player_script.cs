@@ -4,16 +4,22 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class player_script : MonoBehaviour
 {
-    public LayerMask groundLayer;
-    public Transform groundCheck;
-    public int groundLayerIndex;
-    private float moveSpeed = 8f;
-    public float jumpHeight = 16.75f;
-    private float climbHeight = 4f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Transform groundCheck;
+    // [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float jumpHeight = 13.5f;
+    [SerializeField] private float climbHeight = 4f;
+    [SerializeField] private float acceleration = 15f;
+    [SerializeField] private float deceleration = 10f;
+    [SerializeField] private float maxSpeed = 11.5f;
+    [SerializeField] private float jumpBoost = 0.5f;
+
     private float defaultGravity = 7f;
-    public bool isGrounded;
+    private bool isGrounded;
     private Rigidbody2D rb;
     private Animator animator;
+    private float moveInput;
+
 
     private playerCollision playerCollision;
 
@@ -29,36 +35,58 @@ public class player_script : MonoBehaviour
     } // Update is called once per frame
     void Update()
     {
-        handleMovement();
+        moveInput = Input.GetAxisRaw("Horizontal");
         handleJump();
         handleAnimation();
         handleClimb();
 
     }
-
-    private void handleMovement()
+    void FixedUpdate()
     {
-        float moveInput = Input.GetAxis("Horizontal");
-        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
-        if (moveInput > 0)
+
+        HandleMovement();
+    }
+
+    private void HandleMovement()
+    {
+
+        // Target velocity we want to reach
+        float targetSpeed = moveInput * maxSpeed;
+
+        // Smooth acceleration and deceleration
+        if (Mathf.Abs(targetSpeed) > 0.01f)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            // Accelerate toward target speed
+            rb.linearVelocity = new Vector2(
+                Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, acceleration * Time.fixedDeltaTime),
+                rb.linearVelocity.y
+            );
         }
-        if (moveInput < 0)
+        else
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            // Natural slow down (inertia effect)
+            rb.linearVelocity = new Vector2(
+                Mathf.MoveTowards(rb.linearVelocity.x, 0, deceleration * Time.fixedDeltaTime),
+                rb.linearVelocity.y
+            );
         }
 
+        // Flip sprite based on direction
+        if (moveInput > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (moveInput < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
     }
+
     private void handleJump()
     {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.gravityScale = defaultGravity;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight + jumpBoost * Mathf.Abs(rb.linearVelocity.x));
 
         }
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
     }
     private void handleClimb()
