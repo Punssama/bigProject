@@ -4,6 +4,13 @@ using UnityEngine;
 public class ufo : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    [SerializeField] private float fadeDuration = 1f;
+    private SpriteRenderer sr;
+
+    void Awake()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
     void hideUFO()
     {
         StartCoroutine(fadeout());
@@ -11,15 +18,15 @@ public class ufo : MonoBehaviour
     }
     IEnumerator fadeout()
     {
-        float duration = 0.75f;
+        Color color = sr.color;
+        float startAlpha = color.a;
         float t = 0f;
-        Vector3 startScale = transform.localScale;
 
-        while (t < duration)
+        while (t < fadeDuration)
         {
             t += Time.deltaTime;
-            float scale = Mathf.Lerp(1f, 0f, t / duration);
-            transform.localScale = startScale * scale;
+            float alpha = Mathf.Lerp(startAlpha, 0f, t / fadeDuration);
+            sr.color = new Color(color.r, color.g, color.b, alpha);
             yield return null;
         }
 
