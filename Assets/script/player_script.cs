@@ -12,7 +12,7 @@ public class player_script : MonoBehaviour
     [SerializeField] private float acceleration = 15f;
     [SerializeField] private float deceleration = 10f;
     [SerializeField] private float maxSpeed = 11.5f;
-    [SerializeField] private float jumpBoost = 0.5f;
+    [SerializeField] private float jumpBoost = 0.25f;
 
     private float defaultGravity = 7f;
     private bool isGrounded;
