@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 623637861}
   - component: {fileID: 623637860}
   - component: {fileID: 623637863}
+  - component: {fileID: 623637864}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -577,6 +578,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63c427b48ef5a14ebff3c9dc721e888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &623637864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623637859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2ee96f4c8b21644abd1867641ee933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  soundOnUI: {fileID: 1980865287}
+  soundOffUI: {fileID: 2028949732}
 --- !u!1 &630413702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,6 +1490,7 @@ GameObject:
   - component: {fileID: 1013785566}
   - component: {fileID: 1013785565}
   - component: {fileID: 1013785564}
+  - component: {fileID: 1013785567}
   m_Layer: 5
   m_Name: batnhac
   m_TagString: Untagged
@@ -1546,10 +1562,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1260102272}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1013785567}
+        m_TargetAssemblyTypeName: musicButton, Assembly-CSharp
+        m_MethodName: ToggleMusic
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1558,7 +1574,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1013785562}
+      - m_Target: {fileID: 4496155778646133292, guid: 78d6e2581275f874fbce63839591a558, type: 3}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1608,6 +1624,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013785562}
   m_CullTransparentMesh: 1
+--- !u!114 &1013785567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013785562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef41a117d11aea4cbade61347294a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::musicButton
+  musicOnUI: {fileID: 1013785562}
+  musicOffUI: {fileID: 1260102272}
 --- !u!1 &1048742228
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,6 +2142,7 @@ GameObject:
   - component: {fileID: 1260102276}
   - component: {fileID: 1260102275}
   - component: {fileID: 1260102274}
+  - component: {fileID: 1260102277}
   m_Layer: 5
   m_Name: tatnhac
   m_TagString: Untagged
@@ -2183,7 +2214,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1013785562}
+      - m_Target: {fileID: 1260102277}
+        m_TargetAssemblyTypeName: musicButton, Assembly-CSharp
+        m_MethodName: ToggleMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4496155778646133292, guid: 78d6e2581275f874fbce63839591a558, type: 3}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -2194,18 +2237,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1260102272}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1260102275
 MonoBehaviour:
@@ -2245,6 +2276,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260102272}
   m_CullTransparentMesh: 1
+--- !u!114 &1260102277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260102272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef41a117d11aea4cbade61347294a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::musicButton
+  musicOnUI: {fileID: 1013785562}
+  musicOffUI: {fileID: 1260102272}
 --- !u!1 &1265574190
 GameObject:
   m_ObjectHideFlags: 0
@@ -3325,6 +3370,7 @@ GameObject:
   - component: {fileID: 1980865291}
   - component: {fileID: 1980865290}
   - component: {fileID: 1980865289}
+  - component: {fileID: 1980865293}
   m_Layer: 5
   m_Name: batamthanh
   m_TagString: Untagged
@@ -3396,7 +3442,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1980865287}
+      - m_Target: {fileID: 1980865293}
+        m_TargetAssemblyTypeName: SoundToggleUI, Assembly-CSharp
+        m_MethodName: ToggleSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 827058446052358981, guid: 213bf73c3a57c894e88ac5fa6c485881, type: 3}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -3407,18 +3465,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2028949732}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1980865290
 MonoBehaviour:
@@ -3458,6 +3504,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980865287}
   m_CullTransparentMesh: 1
+--- !u!114 &1980865293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980865287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2ee96f4c8b21644abd1867641ee933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundToggleUI
+  soundOnUI: {fileID: 1980865287}
+  soundOffUI: {fileID: 2028949732}
 --- !u!1 &2025959326
 GameObject:
   m_ObjectHideFlags: 0
@@ -3467,6 +3527,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2025959327}
+  - component: {fileID: 2025959328}
   m_Layer: 5
   m_Name: bentrongcaidat
   m_TagString: Untagged
@@ -3497,6 +3558,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2025959328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025959326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ac912d298148343b2973eec7de65e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playAudio: {fileID: 0}
+  playMusic: {fileID: 0}
 --- !u!1 &2028949732
 GameObject:
   m_ObjectHideFlags: 0
@@ -3509,6 +3584,7 @@ GameObject:
   - component: {fileID: 2028949736}
   - component: {fileID: 2028949735}
   - component: {fileID: 2028949734}
+  - component: {fileID: 2028949738}
   m_Layer: 5
   m_Name: tatamthanh
   m_TagString: Untagged
@@ -3580,7 +3656,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1980865287}
+      - m_Target: {fileID: 2028949738}
+        m_TargetAssemblyTypeName: SoundToggleUI, Assembly-CSharp
+        m_MethodName: ToggleSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 827058446052358981, guid: 213bf73c3a57c894e88ac5fa6c485881, type: 3}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -3591,18 +3679,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2028949732}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2028949735
 MonoBehaviour:
@@ -3642,6 +3718,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028949732}
   m_CullTransparentMesh: 1
+--- !u!114 &2028949738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028949732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2ee96f4c8b21644abd1867641ee933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundToggleUI
+  soundOnUI: {fileID: 1980865287}
+  soundOffUI: {fileID: 2028949732}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

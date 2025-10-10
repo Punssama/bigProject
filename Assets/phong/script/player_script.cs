@@ -3,24 +3,32 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 public class player_script : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
-    // [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private float climbHeight = 4f;
-    [SerializeField] private float acceleration = 20f;
-    [SerializeField] private float deceleration = 25f;
-    [SerializeField] private float minJumpForce = 10f; // The force applied when standing still
-    [SerializeField] private float maxJumpForce = 20f; // The maximum possible jump force
-    [SerializeField] private float speedToForceMultiplier = 0.5f; // How much speed adds to the jump
-    [SerializeField] private float maxSpeed = 11f; // How much speed adds to the jump
+    // [SerializeField] private flpublic float jumpForce = 12f;
+    [SerializeField] private float acceleration = 15f;
+    [SerializeField] private float deceleration = 20f;
+    // [SerializeField] private float minJumpForce = 10f; // The force applied when standing still
 
+    // [SerializeField] private float maxJumpForce = 12.5f; // The maximum possible jump force
+    [SerializeField] private float maxSpeed = 13f; // How much speed adds to the jump
+    // [SerializeField] private float speedToForceMultiplier = 0.5f; // How much speed adds to the jump
+    [SerializeField] private float moveSpeed = 5f;
+    private float jumpTimeCounter;
+    private bool isJumping;
+    [SerializeField] private float climbHeight = 4f;
+
+    public float maxJumpTime = 0.25f;  // how long player can hold to go higher
+    public float jumpForce = 7f;
 
     private float defaultGravity = 7f;
     private bool isGrounded;
     private Rigidbody2D rb;
     private Animator animator;
+    private AudioManager audioManager;
     private float moveInput;
 
 
@@ -32,6 +40,7 @@ public class player_script : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>(); animator = GetComponent<Animator>();
         playerCollision = FindAnyObjectByType<playerCollision>();
+        audioManager = FindAnyObjectByType<AudioManager>();
     }
     void Start()
     {
@@ -56,14 +65,14 @@ public class player_script : MonoBehaviour
     {
         float targetSpeed = moveInput * maxSpeed;
         if (Mathf.Abs(targetSpeed) > 0.01f)
-
         {
-            rb.linearVelocity = new Vector2(Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, acceleration * Time.deltaTime), rb.linearVelocity.y);
+
+            rb.linearVelocity = new Vector2(Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, acceleration * Time.fixedDeltaTime), rb.linearVelocity.y);
         }
         else
         {
-            rb.linearVelocity = new Vector2(Mathf.MoveTowards(rb.linearVelocity.x, 0, deceleration * Time.deltaTime), rb.linearVelocity.y);
 
+            rb.linearVelocity = new Vector2(Mathf.MoveTowards(rb.linearVelocity.x, 0, deceleration * Time.fixedDeltaTime), rb.linearVelocity.y);
         }
 
 
@@ -77,16 +86,34 @@ public class player_script : MonoBehaviour
     private void HandleJump()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            float bonusForce = Mathf.Abs(rb.linearVelocity.x) * speedToForceMultiplier;
+            isJumping = true;
+            jumpTimeCounter = maxJumpTime;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 
-            float totalJumpForce = Mathf.Clamp(minJumpForce + bonusForce, minJumpForce, maxJumpForce);
-
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-            rb.AddForce(Vector2.up * totalJumpForce, ForceMode2D.Impulse);
         }
+
+        // While holding Space — continue upward movement for limited time
+        if (Input.GetButton("Jump") && isJumping)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+
+        // When releasing Space — stop jump early
+        if (Input.GetButtonUp("Jump"))
+        {
+            isJumping = false;
+        }
+
     }
     private void handleClimb()
     {
