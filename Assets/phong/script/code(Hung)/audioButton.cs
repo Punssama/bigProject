@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class SoundToggleUI : MonoBehaviour
 {
-    [Header("UI Objects")]
     public GameObject soundOnUI;   // Speaker (no cross)
     public GameObject soundOffUI;  // Speaker with cross
 
-    private bool soundOn;
+    public bool soundOn;
 
     private void Start()
     {

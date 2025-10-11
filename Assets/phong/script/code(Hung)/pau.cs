@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class pau : MonoBehaviour
 {
+    [Header("UI Objects")]
     [SerializeField] private GameObject pauseMenu;
 
     public void Pause()

@@ -8,12 +8,13 @@ public class gameManager : MonoBehaviour
     private gameManager gm;
     private AudioManager audioManager;
     [SerializeField] private TextMeshProUGUI scoreText;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        gm = FindAnyObjectByType<gameManager>();
         audioManager = FindAnyObjectByType<AudioManager>();
     }
+
     void Start()
     {
 

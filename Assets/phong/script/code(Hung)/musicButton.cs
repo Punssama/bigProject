@@ -5,7 +5,7 @@ public class musicButton : MonoBehaviour
     public GameObject musicOnUI;   // Speaker (no cross)
     public GameObject musicOffUI;  // Speaker with cross
 
-    private bool musicOn;
+    public bool musicOn;
 
     private void Start()
     {

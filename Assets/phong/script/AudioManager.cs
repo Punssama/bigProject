@@ -10,11 +10,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip jumpClip;
     [SerializeField] private AudioClip coinClip;
     [SerializeField] private AudioClip climingLadderClip;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         playBackgroundMusic();
-
     }
 
     // Update is called once per frame
@@ -41,5 +42,6 @@ public class AudioManager : MonoBehaviour
     // {
     //     effectAudio.PlayOneShot(jumpClip);
     // }
+
 
 }

@@ -16,7 +16,7 @@ public class player_script : MonoBehaviour
     // [SerializeField] private float maxJumpForce = 12.5f; // The maximum possible jump force
     [SerializeField] private float maxSpeed = 13f; // How much speed adds to the jump
     // [SerializeField] private float speedToForceMultiplier = 0.5f; // How much speed adds to the jump
-    [SerializeField] private float moveSpeed = 5f;
+    // [SerializeField] private float moveSpeed = 5f;
     private float jumpTimeCounter;
     private bool isJumping;
     [SerializeField] private float climbHeight = 4f;
@@ -91,6 +91,7 @@ public class player_script : MonoBehaviour
             isJumping = true;
             jumpTimeCounter = maxJumpTime;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            audioManager.playJumpSound();
 
         }
 
