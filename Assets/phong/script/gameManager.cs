@@ -22,11 +22,17 @@ public class gameManager : MonoBehaviour
     }
     public void winScreen()
     {
-        SceneManager.LoadScene("Win");
+        PlayerPrefs.SetString("LastLevel", SceneManager.GetActiveScene().name);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(3);
     }
     public void LoseScreen()
     {
-        SceneManager.LoadScene("lose");
+        PlayerPrefs.SetString("LastLevel", SceneManager.GetActiveScene().name);
+        PlayerPrefs.Save();
+
+        // Load the lose screen
+        SceneManager.LoadScene(2);
     }
     public void addPoint(int point)
     {

@@ -5,7 +5,16 @@ public class win : MonoBehaviour
 {
     public void thang()
     {
-        SceneManager.LoadScene(1);
+        string LastLevel = PlayerPrefs.GetString("LastLevel", "");
+
+        if (LastLevel == "Level2")
+        {
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            SceneManager.LoadScene(5);
+        }
     }
 
     public void thua()

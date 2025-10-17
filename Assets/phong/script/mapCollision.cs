@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,11 +29,14 @@ public class mapCollision : MonoBehaviour
         animator.SetBool("isOpen", isOpen);
 
     }
-    void OnTriggerEnter2D(Collider2D collision)
+    async void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+
+
             isOpen = true;
+            await Task.Delay(1000);
             gameManager.winScreen();
         }
     }

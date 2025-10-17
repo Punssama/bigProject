@@ -9,12 +9,25 @@ public class playerCollision : MonoBehaviour
     public bool isOpen;
     private Animator animator;
     private gameManager gameManager;
+    [SerializeField] Transform player;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         gameManager = FindAnyObjectByType<gameManager>();
     }
+    void Update()
+    {
+        float yCheck = player.position.y;
+        if (yCheck < -8)
+        {
+            gameManager.LoseScreen();
+        }
+
+
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("ladder"))
