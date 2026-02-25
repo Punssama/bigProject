@@ -27,7 +27,7 @@ jobs:
         run: |
           dotnet sonarscanner begin \
             /k:"unity-project" \
-            /d:sonar.host.url="https://YOUR_NGROK_URL" \
+            /d:sonar.host.url="https://mustily-noncharacterized-niko.ngrok-free.dev" \
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: Build C# files
