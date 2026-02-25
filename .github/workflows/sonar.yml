@@ -1,0 +1,40 @@
+name: SonarQube Unity Scan
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install SonarScanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Add tool to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Begin SonarQube analysis
+        run: |
+          dotnet sonarscanner begin \
+            /k:"unity-project" \
+            /d:sonar.host.url="https://mustily-noncharacterized-niko.ngrok-free.dev" \
+            /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+
+      - name: Build C# files
+        run: |
+          dotnet build || true
+
+      - name: End SonarQube analysis
+        run: |
+          dotnet sonarscanner end \
+            /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
