@@ -14,6 +14,7 @@ public class ItemHandling : MonoBehaviour
             Destroy(collision.gameObject);
             // Debug.Log("ban da an coin");
             gm.addPoint(1);
+            gm.addPoint(2);
         }
     }
 }
